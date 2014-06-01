@@ -1,0 +1,115 @@
+{% extends "header.html"%}
+
+{% load staticfiles %}
+
+{% block tittle %}Usuarios{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static "css/style.css" %}">
+<link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}"/>
+<!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+{% endblock %}  
+
+{% block allcontent %}
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
+    
+    
+    <button type="button" class="btn btn-danger navbar-btn del-button pull-lefth">Eliminar</button>    
+
+    <a href="/logout">
+    <button type="button" class="btn btn-primary navbar-btn logout-button pull-right">Salir</button>
+    </a>  
+  </div>      
+  </nav>
+
+
+  <div class="website-tittle">
+  <p>Usuarios Registrados</p>
+  </div>
+
+  <div class="custom-content">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th><input class="toggle-master" type="checkbox"></th>
+          <th><b>Usuario</b></th>
+          <th><b>Email</b></th>
+          <th><b>Clave</b></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for u in usuarios %}
+        <tr id="{{u.get_username}}">
+          <td>
+            <input class="toggle-slave" id="{{u.get_username}}" type="checkbox">
+          </td>
+          <td>{{u.get_username}}</td>
+          <td class="{{u.get_username}}">{{u.get_email}}</td>
+          <td>{{u.get_password}}</td>
+          <td>
+          <button uname = "{{u.get_username}}" type="button" class="btn btn-default editButton">
+            <span class="glyphicon glyphicon-pencil"></span> Editar
+          </button>
+          </td>
+        </tr>       
+      {% endfor%}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
+
+{% block modal %}
+<div class="modal fade" id="modalEdit">
+<div class="modal-dialog">
+<div class="modal-content">       
+  
+  <div class="modal-header">
+  <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+  <h2 class="text-primary">Editar Usuario:&nbsp;&nbsp;&nbsp;
+  <b class="unameTittle"></b>
+  </h2>
+  </div> 
+
+  <div class="modal-body">
+    <form class="editform" method="POST">
+      {% csrf_token %}
+      <div class="form-group">
+      <input type="email" class="form-control emailField" placeholder="Email" required/>
+      </div>      
+      <button type="submit" class="btn btn-primary">Actualizar</button>
+    </form>   
+  </div>    
+
+</div>
+</div>
+</div>
+
+<div class="modal fade" id="modalMsg">
+<div class="modal-dialog">
+<div class="modal-content">       
+  
+  <div class="modal-header">
+  <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+  <h2 class="text-primary">Mensaje</h2>
+  </div> 
+
+  <div class="modal-body">
+      <h3 class="text-primary msgtext"></h3>
+  </div>    
+
+</div>
+</div>
+</div>
+{% endblock %} 
+
+
+{% block script %}
+<script type="text/javascript" src="{% static "js/jquery-1.11.0.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/bootstrap.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/toggle.js" %}"></script>
+<script type="text/javascript" src="{% static "js/crud.js" %}"></script>
+<script type="text/javascript" src="{% static "js/loginInit.js" %}"></script>
+{% endblock %} 
+

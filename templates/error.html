@@ -1,0 +1,15 @@
+{% load staticfiles %}
+
+{% block tittle %}Oops!! Algo no ha salido bien{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static "css/style.css" %}">
+<link rel="stylesheet" href="{% static "css/error.css" %}">
+<!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+{% endblock %}  
+
+{% block allcontent %}
+<div class="error-text"><h2>Oops!!! Algo no ha salido bien :(</h2> 
+<h2>Contactanos a la brevedad posible</h2> 
+<h2>:: admin@webmaster.com ::</h2></div>
+{% endblock %}
